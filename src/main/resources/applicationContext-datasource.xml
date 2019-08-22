@@ -11,6 +11,7 @@
 
     <context:component-scan base-package="com.mmall" annotation-config="true"/>
 
+    <!--配置文件的分离，分离到下面value值对应的文件中-->
     <bean id="propertyConfigurer"
           class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
         <property name="order" value="2"/>
@@ -24,6 +25,7 @@
     </bean>
 
 
+    <!--属性set方法注入-->
     <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
         <property name="driverClassName" value="${db.driverClassName}"/>
         <property name="url" value="${db.url}"/>
@@ -58,7 +60,9 @@
     </bean>
 
     <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <!--对象属性注入，例如(service&dao)-->
         <property name="dataSource" ref="dataSource"/>
+        <!--属性注入-->
         <property name="mapperLocations" value="classpath*:mappers/*Mapper.xml"></property>
 
         <!-- 分页插件 -->
