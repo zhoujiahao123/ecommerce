@@ -11,7 +11,7 @@
 
     <context:component-scan base-package="com.mmall" annotation-config="true"/>
 
-    <!--配置文件的分离，分离到下面value值对应的文件中-->
+    <!--配置文件常量的分离，分离到下面value值对应的文件中-->
     <bean id="propertyConfigurer"
           class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
         <property name="order" value="2"/>
@@ -62,7 +62,7 @@
     <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
         <!--对象属性注入，例如(service&dao)-->
         <property name="dataSource" ref="dataSource"/>
-        <!--属性注入-->
+        <!--扫描sql配置文件，mapper需要的xml文件-->
         <property name="mapperLocations" value="classpath*:mappers/*Mapper.xml"></property>
 
         <!-- 分页插件 -->
@@ -79,7 +79,7 @@
         </property>
 
     </bean>
-
+    <!-- 扫描dao接口包，动态实现Dao接口，注入到Spring容器中 -->
     <bean name="mapperScannerConfigurer" class="org.mybatis.spring.mapper.MapperScannerConfigurer">
         <property name="basePackage" value="com.mmall.dao"/>
     </bean>
@@ -91,6 +91,4 @@
         <property name="dataSource" ref="dataSource"/>
         <property name="rollbackOnCommitFailure" value="true"/>
     </bean>
-
-
 </beans>
