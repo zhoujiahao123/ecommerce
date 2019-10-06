@@ -122,7 +122,7 @@ public class ProductServiceImpl implements IProductService {
         //parentCategoryId
         //createTime
         //updateTime
-        productDetailVo.setImageHost(PropertiesUtil.getProperty("ftp.server.http.prefix", "http://img.happymmall.com/"));
+        productDetailVo.setImageHost(PropertiesUtil.getProperty("ftp.server.http.prefix", "http://image.imooc.com/"));
         Category category = categoryMapper.selectByPrimaryKey(product.getCategoryId());
         if (category == null) {
             productDetailVo.setParentCategoryId(0);//默认为根节点
