@@ -30,8 +30,8 @@ public class FTPUtil {
     public static boolean uploadFile(List<File> fileList) throws IOException {
         FTPUtil ftpUtil = new FTPUtil(ftpIp, 21, ftpUser, ftpPass);
         logger.info("开始连接ftp服务器");
-        boolean result = ftpUtil.uploadFile("img",fileList);
-        logger.info("开始连接ftp服务器,结束上传，上传结果:{}",result);
+        boolean result = ftpUtil.uploadFile("img", fileList);
+        logger.info("开始连接ftp服务器,结束上传，上传结果:{}", result);
         return result;
     }
 
@@ -54,8 +54,10 @@ public class FTPUtil {
             } catch (IOException e) {
                 logger.error("文件上传异常", e);
                 uploaded = false;
-            }finally {
-                fis.close();
+            } finally {
+                if (fis != null) {
+                    fis.close();
+                }
                 ftpClient.disconnect();
             }
         }
@@ -66,8 +68,8 @@ public class FTPUtil {
         boolean isSuccess = false;
         ftpClient = new FTPClient();
         try {
-            System.out.println("user给i熬过i奥:"+user);
-            System.out.println("password:"+pwd);
+            System.out.println("user给i熬过i奥:" + user);
+            System.out.println("password:" + pwd);
             ftpClient.connect(ip);
             isSuccess = ftpClient.login(user, pwd);
         } catch (IOException e) {
